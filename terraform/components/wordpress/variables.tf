@@ -17,6 +17,7 @@ variable "wordpress_server_ec2" {
     subnet_id = ""
     tag_name = ""
     monitoring = "yes"
+    user_data = ""
   }
 }
 

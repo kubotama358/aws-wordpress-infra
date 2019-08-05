@@ -46,6 +46,7 @@ module "alb" {
   target_group = "${local.wordpress_alb_target_group}"
   target_group_attachment = "${local.wordpress_alb_target_group_attachment}"
   listener = "${local.wordpress_alb_listener}"
+  http_listener = "${var.wordpress_alb_http_listener}"
   security_group = "${local.security_group}"
   security_group_rule = "${local.security_group_rule}"
   vpc_zone_identifier = "${local.vpc_zone_identifier}"

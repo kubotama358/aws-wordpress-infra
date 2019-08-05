@@ -46,6 +46,14 @@ variable "wordpress_alb_listener" {
   }
 }
 
+variable "wordpress_alb_http_listener" {
+  type = "map"
+  default = {
+    port = ""
+    protocol = ""
+  }
+}
+
 variable "wordpress_alb_security_group" {
   type    = "map"
   default = {

@@ -5,15 +5,17 @@ resource "aws_lb" "alb" {
   name = "${var.alb["name"]}"
   internal = false
   load_balancer_type = "application"
-  subnets = ["${var.vpc_zone_identifier}"]
-  security_groups = ["${aws_security_group.security_group.id}"]
+  subnets = [
+    "${var.vpc_zone_identifier}"]
+  security_groups = [
+    "${aws_security_group.security_group.id}"]
 }
 
 resource "aws_lb_target_group" "alb_target_group" {
   name = "${var.target_group["name"]}"
   port = "${var.target_group["port"]}"
   protocol = "${var.target_group["protocol"]}"
-  vpc_id= "${var.target_group["vpc_id"]}"
+  vpc_id = "${var.target_group["vpc_id"]}"
 }
 
 resource "aws_lb_target_group_attachment" "alb_target_group_attachment" {
@@ -30,9 +32,41 @@ resource "aws_lb_listener" "alb_listener" {
   certificate_arn = "${var.listener["certificate_arn"]}"
 
   default_action {
-    type             = "forward"
+    type = "forward"
     target_group_arn = "${aws_lb_target_group.alb_target_group.arn}"
   }
+}
+
+resource "aws_lb_listener" "alb_http_listener" {
+  load_balancer_arn = "${aws_lb.alb.arn}"
+  port = "${var.http_listener["port"]}"
+  protocol = "${var.http_listener["protocol"]}"
+
+  default_action {
+    type = "forward"
+    target_group_arn = "${aws_lb_target_group.alb_target_group.arn}"
+  }
+}
+
+resource "aws_lb_listener_rule" "alb_http_listener_rule" {
+  listener_arn = "${aws_lb_listener.alb_http_listener.arn}"
+
+  action {
+    type = "redirect"
+    target_group_arn = "${aws_lb_target_group.alb_target_group.arn}"
+
+    redirect {
+      port = "443"
+      protocol = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+
+  condition {
+    field = "path-pattern"
+    values = ["*"]
+  }
+  depends_on = ["aws_lb_listener.alb_http_listener"]
 }
 
 #####################################
