@@ -8,7 +8,8 @@ locals {
     var.wordpress_server_ec2,
     map("key_name", "${local.base_name}-wordpress-server"),
     map("subnet_id", "${local.public_subnet}"),
-    map("tag_name", "${local.base_name}-wordpress-server")
+    map("tag_name", "${local.base_name}-wordpress-server"),
+    map("user_data", "${data.template_file.chat_bot_user-data.rendered}")
   )}"
 
   wordpress_server_sg = "${merge(
@@ -17,6 +18,10 @@ locals {
      map("description", "${local.base_name}-wordpress-server"),
      map("vpc_id", "${local.vpc_id}")
   )}"
+}
+
+data "template_file" "chat_bot_user-data" {
+  template = "${file("user-data/user-data.sh")}"
 }
 
 module "wordpress_server" {

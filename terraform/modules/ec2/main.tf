@@ -19,6 +19,7 @@ resource "aws_instance" "ec2" {
     monitoring = "${var.ec2["monitoring"]}"
     env = "${var.common["env"]}"
   }
+  user_data = "${var.ec2["user_data"]}"
 }
 
 #####################################

@@ -28,3 +28,8 @@ wordpress_alb_listener = {
   protocol = "HTTPS"
   ssl_policy = "ELBSecurityPolicy-2016-08"
 }
+
+wordpress_alb_http_listener = {
+  port = "80"
+  protocol = "HTTP"
+}

@@ -9,6 +9,7 @@ variable "ec2" {
     subnet_id = ""
     tg_name = ""
     monitoring = "yes"
+    user_data = ""
   }
 }
 

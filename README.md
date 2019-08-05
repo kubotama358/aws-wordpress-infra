@@ -13,7 +13,7 @@
 
 ## 0. 前準備
 ### terraformのインストール
-v0.11.13で動作確認を行っています。v0.12以上では動きません。
+v0.11.13で動作確認を行っています。v0.12以上では動作確認を行なっていません。
 ```
 brew uninstall terraform
 brew install tfenv
@@ -116,5 +116,4 @@ make wordpress-route53-apply ENV=${env}
 applyコマンドでは途中入力を求められる。yesを入力すれば適用
 ```
 
-これで完成。https://${domain_name}でwordpressの自分の画面がでるぞ！  
-わからないことあったら気軽にメールして"kubota.masataka358@gmail.com"# aws-wordpress-infra
+これで完成。https://${domain_name}でwordpressの自分の画面がでるぞ！

@@ -38,6 +38,14 @@ variable "listener" {
   }
 }
 
+variable "http_listener" {
+  type = "map"
+  default = {
+    port = ""
+    protocol = ""
+  }
+}
+
 variable "security_group" {
   type    = "map"
   default = {
